@@ -14,7 +14,6 @@ class SimpleUserSerializer(ModelSerializer):
         )
 
 class DetailUserSerializer(ModelSerializer):
-    password = CharField(read_only=True)
     class Meta:
         model=User
         exclude=(
