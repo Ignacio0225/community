@@ -21,6 +21,7 @@ class User(AbstractUser):
     avatar = models.URLField(
         blank=True,
     )
+    # nickname개념, username(일반적인 로그인 ID)와 다름
     name = models.CharField(
         max_length=150,
         default=""

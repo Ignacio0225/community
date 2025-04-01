@@ -5,6 +5,7 @@ from .models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+
     fieldsets = (
         ('Profile',
         {'fields':(
@@ -22,6 +23,7 @@ class CustomUserAdmin(UserAdmin):
                 ),
         },
         ),
+        # super user가 일반 유저에게 설정 해줄수 있는 기능들
         ('Permission',
         {'fields':(
                 'is_active',

@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env =  environ.Env() #environ 설정(.env / secret_key 설정)
+environ.Env.read_env(os.path.join(BASE_DIR,'.env')) #environ 설정(.env / secret_key 설정)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7d3lvm+ft&ag(9ap*nsvnoktd!+5do&rh3ejj+9axuv)&$5!1^'
+SECRET_KEY = env('SECRET_KEY') #environ 설정(.env / secret_key 설정)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,10 +37,12 @@ ALLOWED_HOSTS = []
 
 THIRD_PARTY_APPS =[
     "rest_framework",
+    "rest_framework_simplejwt",
 ]
 
 CUSTOM_APPS=[
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'common.apps.CommonConfig',
 ]
 
 SYSTEM_APPS=[
@@ -134,3 +141,21 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# JWT의 제한 시간을 늘려줌
+SIMPLE_JWT ={
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),     # access 토큰 유효 시간
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),         # refresh 토큰 유효 시간
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
