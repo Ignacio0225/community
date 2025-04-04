@@ -43,6 +43,10 @@ THIRD_PARTY_APPS =[
 CUSTOM_APPS=[
     'users.apps.UsersConfig',
     'common.apps.CommonConfig',
+    'posts.apps.PostsConfig',
+    # 'files.apps.FilesConfig',
+    # 'replies.apps.RepliesConfig',
+    # 'likes.apps.LikesConfig',
 ]
 
 SYSTEM_APPS=[

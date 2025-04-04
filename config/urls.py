@@ -25,5 +25,5 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     #users.urls연결
     path('api/v1/user/',include('users.urls')),
-
+    path('api/v1/posts/',include('posts.urls')),
 ]
