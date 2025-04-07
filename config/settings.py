@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 THIRD_PARTY_APPS =[
     "rest_framework",
     "rest_framework_simplejwt",
+    "corsheaders", #프론트랑 연결
 ]
 
 CUSTOM_APPS=[
@@ -62,6 +63,7 @@ SYSTEM_APPS=[
 INSTALLED_APPS = SYSTEM_APPS+CUSTOM_APPS+THIRD_PARTY_APPS
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", #프론트랑 연결
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -163,3 +165,7 @@ SIMPLE_JWT ={
     'AUTH_HEADER_TYPES': ('Bearer',),
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
+
+
+# CORS_ALLOW_ALL_ORIGINS = True #프론트랑 연결
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173'] #프론트랑 연결
