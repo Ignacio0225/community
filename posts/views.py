@@ -10,16 +10,19 @@ from .models import Post
 
 
 class Posts(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self,request):
         try:
             page = request.query_params.get('page',1)
             page = int(page)
         except ValueError:
             page = 1
-        page_size = 3
+        page_size = 5
         start = (page-1) * page_size
         end = start + page_size
-        all_posts=Post.objects.all()
+        # 출력 순서를 역순으로(최신순) .order_by('-created_at')은 업로드순
+        all_posts=Post.objects.all().order_by('-id')
         serializer=PostSerializer(all_posts[start:end],many=True)
         return Response(serializer.data)
 
