@@ -45,7 +45,7 @@ class PostDetail(APIView):
         except Post.DoesNotExist:
             raise NotFound
 
-    def get(self,request,pk):
+    def get(self,pk):
         post=self.get_object(pk)
         serializer=PostSerializer(post)
         return Response(serializer.data)
