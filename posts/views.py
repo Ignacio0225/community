@@ -45,7 +45,7 @@ class PostDetail(APIView):
         except Post.DoesNotExist:
             raise NotFound
 
-    def get(self,pk):
+    def get(self,request,pk):
         post=self.get_object(pk)
         serializer=PostSerializer(post)
         return Response(serializer.data)
@@ -53,7 +53,7 @@ class PostDetail(APIView):
     def put(self,request,pk):
         post=self.get_object(pk)
         if post.poster != request.user:
-            raise PermissionDenied
+            raise PermissionDenied("권한 없음")
         else:
             serializer = PostSerializer(post, data=request.data, partial=True)
             if serializer.is_valid():
