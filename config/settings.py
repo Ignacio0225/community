@@ -168,4 +168,4 @@ SIMPLE_JWT ={
 
 
 # CORS_ALLOW_ALL_ORIGINS = True #프론트랑 연결
-CORS_ALLOWED_ORIGINS = ['http://localhost:5174'] #프론트랑 연결
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173'] #프론트랑 연결

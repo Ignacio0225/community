@@ -22,6 +22,7 @@ class User(AbstractUser):
         blank=True,
     )
     # nickname개념, username(일반적인 로그인 ID)와 다름
+    # 동일한 이름을 갖지 못하게 유니크 옵션 추가
     name = models.CharField(
         max_length=150,
         default="",
